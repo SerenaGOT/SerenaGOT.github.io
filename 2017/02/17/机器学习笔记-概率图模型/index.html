@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -84,12 +84,36 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Serena Westeros">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
+
+有向无环图表示变量之间的依赖关系（有向图模型或者贝叶斯网Bayesian network）
+变量间存在显式因果关系
+
+
+无向图表示变量之间的相关关系（无向图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习笔记-概率图模型">
+<meta property="og:url" content="http://yoursite.com/2017/02/17/机器学习笔记-概率图模型/index.html">
 <meta property="og:site_name" content="Serena Westeros">
+<meta property="og:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
+
+有向无环图表示变量之间的依赖关系（有向图模型或者贝叶斯网Bayesian network）
+变量间存在显式因果关系
+
+
+无向图表示变量之间的相关关系（无向图">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/hmm.png">
+<meta property="og:updated_time" content="2017-02-16T16:20:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Serena Westeros">
+<meta name="twitter:title" content="机器学习笔记-概率图模型">
+<meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
+
+有向无环图表示变量之间的依赖关系（有向图模型或者贝叶斯网Bayesian network）
+变量间存在显式因果关系
+
+
+无向图表示变量之间的相关关系（无向图">
+<meta name="twitter:image" content="http://ojrl64kjn.bkt.clouddn.com/hmm.png">
 
 
 
@@ -117,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/17/机器学习笔记-概率图模型/"/>
 
 
 
 
 
-  <title> Serena Westeros </title>
+  <title> 机器学习笔记-概率图模型 | Serena Westeros </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -144,9 +168,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,9 +269,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -282,10 +304,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/02/17/机器学习笔记-概率图模型/" itemprop="url">
-                  机器学习笔记-概率图模型
-                </a>
+                机器学习笔记-概率图模型
               
             
           </h1>
@@ -336,9 +355,7 @@
       
 
       
-        
-          
-            <blockquote>
+        <blockquote>
 <p>概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：</p>
 <ul>
 <li>有向无环图表示变量之间的依赖关系（有向图模型或者贝叶斯网Bayesian network）<ul>
@@ -405,309 +422,62 @@
 <li>给定观测序列 $\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} ，如何调整模型参数$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$使得该序列出现的概率$P(\textbf{x}|\lambda)$最大，即如何训练模型使其能最好地描述观察数据</li>
 </ul>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/hello-world/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Serena">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="http://ojrl64kjn.bkt.clouddn.com/cat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Serena Westeros">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Serena Westeros" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/12/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T22:08:54+08:00">
-                2017-01-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/12/hello-world/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/12/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/18/Mac OS 10.11 + Xcode 实现链接MySQL5.7.3 c编译/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Serena">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="http://ojrl64kjn.bkt.clouddn.com/cat.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Serena Westeros">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Serena Westeros" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/18/Mac OS 10.11 + Xcode 实现链接MySQL5.7.3 c编译/" itemprop="url">
-                  Mac OS 10.11 + Xcode 实现链接MySQL5.7.3 c编译
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-18T00:51:03+08:00">
-                2016-10-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tech-note/" itemprop="url" rel="index">
-                    <span itemprop="name">技术笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>发现Xcode也能如此简单地支持Mysql库链接，不用开着虚拟机跑十几G的VS的时候，留下了激动的泪水。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ol>
-<li>已经安装了Xcode7.0.1</li>
-<li>已经安装了MySQL5.7.3和图形界面MySQL WorkBench6.3</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/10/18/Mac OS 10.11 + Xcode 实现链接MySQL5.7.3 c编译/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -715,6 +485,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -734,8 +508,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://ojrl64kjn.bkt.clouddn.com/cat.jpg"
@@ -802,6 +585,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -908,6 +707,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
@@ -939,6 +742,10 @@
 
   
 
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
   
 
 
