@@ -103,7 +103,11 @@
 
 无向图表示变量之间的相关关系（无向图">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/hmm.png">
-<meta property="og:updated_time" content="2017-02-17T01:35:39.000Z">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/mrf.png">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/abc.png">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/abc2.png">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/ccrf.png">
+<meta property="og:updated_time" content="2017-02-17T10:35:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-概率图模型">
 <meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
@@ -367,19 +371,22 @@
 </ul>
 </li>
 </ul>
+<p>生成式模型考虑联合分布，判别式模型考虑条件分布</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><a href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）" class="headerlink" title="1、隐马尔可夫模型（Hidden Markov Model,简称HMM）"></a>1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</h2><blockquote>
 <p>结构最简单的动态贝叶斯网，有向图模型</p>
 <p>静态贝叶斯网在书中7.5节</p>
 </blockquote>
 <ul>
-<li>参考连接：<ul>
+<li><p>参考连接：</p>
+<ul>
 <li><a href="https://www.zhihu.com/question/20962240" target="_blank" rel="external">如何用简单易懂的例子解释隐马尔可夫模型？</a>  骰子的例子</li>
 </ul>
+<p>​</p>
 </li>
 </ul>
-<h3 id="模型参数"><a href="#模型参数" class="headerlink" title="模型参数"></a>模型参数</h3><hr>
-<p>马尔可夫模型的变量可以分为两组：</p>
+<h3 id="模型参数"><a href="#模型参数" class="headerlink" title="模型参数"></a>模型参数</h3><p>马尔可夫模型的变量可以分为两组：</p>
 <ul>
 <li>状态变量 {$y_1$, $y_2$,…,$y_n$}，其中$ y_i \in Y$ 表示第i时刻的系统状态（隐藏的不可被观察的）</li>
 <li>观察变量 {$x_1$, $x_2$,…,$x_n$}，其中$x_i\in \chi$ 表示第i时刻的观测值</li>
@@ -390,36 +397,117 @@
 <ul>
 <li><p>任一时刻，观察变量的取值只依赖于状态变量，即$x_t$由$y_t$决定</p>
 </li>
-<li><p>t时刻的状态 $y<em>t$ 仅依赖于t-1时刻的状态 $y</em>{t-1}$，与其余n-2个状态无关，也就是”<strong>马尔可夫链</strong>”：系统下一时刻的状态仅由当前状态决定，不依赖于以往的任何状态，基于这种依赖关系，所有变量的联合概率分布为：</p>
-<p> $P(x_1,y_1,…,x_n,y_n)=P(y_1)P(x_1|y<em>1)\prod</em>{i=2}^nP(y<em>i|y</em>{i-1})P(x_i|y_i)$</p>
-</li>
+<li><p>t时刻的状态 <script type="math/tex">y_t</script>仅依赖于t-1时刻的状态<script type="math/tex">y_{t-1}</script>，与其余n-2个状态无关，也就是”<strong>马尔可夫链</strong>”：系统下一时刻的状态仅由当前状态决定，不依赖于以往的任何状态，基于这种依赖关系，所有变量的联合概率分布为：</p>
+<script type="math/tex; mode=display">P(x_1,y_1,…,x_n,y_n)=P(y_1)P(x_1|y_1)\prod_{i=2}^nP(y_i|y_{i-1})P(x_i|y_i)</script></li>
 </ul>
 <p>除了结构信息，确定一个马尔可夫模型还需要以下三组参数</p>
 <ul>
-<li><strong>状态转移概率</strong>：模型在各个状态间转换的概率，通常记为矩阵$\textbf{A}=[a<em>{ij}]</em>{N\times N}$ <ul>
-<li>$[a<em>{ij}]=P(y</em>{t+1}=s_j|y_t=s_i)$ ,   $1\le i,j \le N$    表示在t时刻 若状态为$s_i$,下一时刻为$s_j$的概率</li>
+<li><strong>状态转移概率</strong>：模型在各个状态间转换的概率，通常记为矩阵<script type="math/tex">\textbf{A}=[a_{ij}]_{N\times N}</script> <ul>
+<li><script type="math/tex">[a_{ij}]=P(y_{t+1}=s_j|y_t=s_i)</script> ,   $1\le i,j \le N$    表示在t时刻 若状态为$s_i$,下一时刻为$s_j$的概率</li>
 </ul>
 </li>
-<li><strong>输出观测概率</strong>：模型根据当前状态获得各个观测值的概率，通常记为矩阵$\textbf{B}=[b<em>{ij}]</em>{N\times M}$ <ul>
-<li>$[b_{ij}]=P(x_t=o_j|y_t=s_i)$ ,   $1\le i, \le N, 1\le j \le M$  表示在t时刻 若状态为$s_i$,观察值为$o_j$的概率</li>
+<li><strong>输出观测概率</strong>：模型根据当前状态获得各个观测值的概率，通常记为矩阵<script type="math/tex">\textbf{B}=[b_{ij}]_{N\times M}</script> <ul>
+<li><script type="math/tex">[b_{ij}]=P(x_t=o_j|y_t=s_i)</script> ,   $1\le i, \le N, 1\le j \le M$  表示在t时刻 若状态为$s_i$,观察值为$o_j$的概率</li>
 </ul>
 </li>
 <li><strong>初始状态概率</strong>：模型在初始时刻个状态出现的概率，通常记为$\pi = \pi_1, \pi_2,…,\pi_N$ 其中 $\pi_i = P(y_1 = s_i)$  表示初始时刻状态为$s_i$的概率</li>
 </ul>
-<h3 id="生成序列过程"><a href="#生成序列过程" class="headerlink" title="生成序列过程"></a>生成序列过程</h3><hr>
-<p>通过指定状态空间Y,观察空间$\chi$和上述的三组参数，就可以确定一个隐马尔可夫模型，通常用参数$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$ 来指代。</p>
+<h3 id="生成序列过程"><a href="#生成序列过程" class="headerlink" title="生成序列过程"></a>生成序列过程</h3><p>通过指定状态空间Y,观察空间$\chi$和上述的三组参数，就可以确定一个隐马尔可夫模型，通常用参数$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$ 来指代。</p>
 <p>给定隐马尔可夫模型$\lambda$ ,按下面的过程可以产生观测序列 {$x_1$, $x_2$,…,$x_n$}：</p>
 <ol>
 <li>设置t=1， 根据初始状态概率$\pi$选择初始状态$y_1$;</li>
 <li>根据状态$y_t$和输出观测概率$\textbf{B}$选择对应观测变量取值$x_i$</li>
-<li>根据状态$y<em>t$和状态转移矩阵$\textbf{A}$转移模型状态，确认$y</em>{i+1}$;</li>
+<li>根据状态<script type="math/tex">y_t</script>和状态转移矩阵$\textbf{A}$转移模型状态，确认$y_{i+1}$;</li>
 <li>若t&lt;n，设置t=t+1，并转到第2步，否则停止</li>
 </ol>
-<h3 id="马尔可夫模型的三个基本问题"><a href="#马尔可夫模型的三个基本问题" class="headerlink" title="马尔可夫模型的三个基本问题"></a>马尔可夫模型的三个基本问题</h3><hr>
-<ul>
+<h3 id="马尔可夫模型的三个基本问题"><a href="#马尔可夫模型的三个基本问题" class="headerlink" title="马尔可夫模型的三个基本问题"></a>马尔可夫模型的三个基本问题</h3><ul>
 <li>给定模型$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$ ,如何有效算出观测序列 $\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} 的概率$P(\textbf{x}|\lambda)$,即评估模型与观测序列的匹配程度</li>
 <li>给定模型$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$ ,和观测序列 $\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} ，如何找到与此观察序列最匹配的状态序列$\boldsymbol{y}= $ {$y_1$, $y_2$,…,$y_n$},即如何根据观测序列推断出隐藏的模型状态</li>
 <li>给定观测序列 $\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} ，如何调整模型参数$\lambda =[\textbf{A},\textbf{B},\boldsymbol{\pi}]$使得该序列出现的概率$P(\textbf{x}|\lambda)$最大，即如何训练模型使其能最好地描述观察数据</li>
+</ul>
+<h2 id="2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><a href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）" class="headerlink" title="2、马尔可夫随机场（Markov Random Field，简称MRF）"></a>2、马尔可夫随机场（Markov Random Field，简称MRF）</h2><blockquote>
+<ul>
+<li>典型的马尔可夫网(无向图模型)</li>
+<li>途中的每个节点表示一个或一组变量，结点之间的边表示两个变量之间的依赖关系，马尔可夫随机场有一组势函数（potential functions），称为“因子”（factor），是定义在变量子集上的非负实函数，主要用于定义概率分布函数。</li>
+</ul>
+</blockquote>
+<p>下图为一个简单的马尔可夫随机场</p>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/mrf.png" alt="mrf"></p>
+<ul>
+<li>团：对于图中结点的子集，其中任意两个结点都有边连接</li>
+<li>极大团：指在一个团中加入任一其他的结点都不再形成团</li>
+<li>图中的团包括{x1,x2},{x1,x3},{x2,x4},{x2,x5},{x2,x6},{x3,x5},{x5,x6},{x2,x5,x6}, 除了{x2,x5},{x2,x6},{x5,x6}之外都是极大团</li>
+</ul>
+<h3 id="联合概率计算"><a href="#联合概率计算" class="headerlink" title="联合概率计算"></a>联合概率计算</h3><p>马尔可夫随机场中，多个变量之间的联合概率分布能基于团分解为多个因子的乘积，每个因子仅仅与一个团相关</p>
+<p>对于n个变量 $\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} ，所有团的集合为$C$，与团<script type="math/tex">Q \in C</script>的变量集合记为$\boldsymbol{x}_Q$则联合概率$P(\boldsymbol{x})$ 定义为：</p>
+<ul>
+<li><p><script type="math/tex">P(\boldsymbol{x}) = \frac{1}{Z}\prod_{Q \in C} \psi_Q(\boldsymbol{x}_Q)</script>    （1）</p>
+</li>
+<li><p><script type="math/tex">\psi_Q</script>是团Q对应的势函数</p>
+</li>
+<li><script type="math/tex">Z=\Sigma_{\boldsymbol{x}}\prod_{Q \in C} \psi_Q(\boldsymbol{x}_Q)</script>   (2)为规划化因子，确保<script type="math/tex">P(\boldsymbol{x})</script>是被正确定义的概率,Z精确计算很难</li>
+</ul>
+<p>若团Q不是极大团，则必然被一个极大团<script type="math/tex">Q^*</script>包含，则<script type="math/tex">\boldsymbol{x}_Q</script>之间的关系还体现在<script type="math/tex">\psi_{Q^*}</script>上，设极大团构成的集合为<script type="math/tex">C^*</script> 则</p>
+<ul>
+<li><p><script type="math/tex">P(\boldsymbol{x}) = \frac{1}{Z^*}\prod_{Q \in C^*} \psi_Q(\boldsymbol{x}_Q)</script>   (3)</p>
+</li>
+<li><p>对于马尔可夫随机场得到的“条件独立性”参考7.5.1节，借助“分离的概念”，若从结点集A到结点集B必须经过结点C中的结点，则A,B被C分离，C为分离集</p>
+</li>
+<li>全局马尔可夫性：给定两个变量子集的分离集，则两个变量子集条件独立</li>
+</ul>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/abc.png" alt="abc"></p>
+<p>即上图ABC对应的变量集<script type="math/tex">\boldsymbol{x_A}</script>,<script type="math/tex">\boldsymbol{x_B}</script>和<script type="math/tex">\boldsymbol{x_C}</script>, <script type="math/tex">\boldsymbol{x_A}</script>,<script type="math/tex">\boldsymbol{x_B}</script>在给定<script type="math/tex">\boldsymbol{x_C}</script>的条件下独立，记为<script type="math/tex">\boldsymbol{x_A} \bot \boldsymbol{x_B} | \boldsymbol{x_C}</script></p>
+<h3 id="验证条件独立"><a href="#验证条件独立" class="headerlink" title="验证条件独立"></a>验证条件独立</h3><p>把上图的ABC简化为单变量<script type="math/tex">x_A,x_B,x_C</script>上图关系简化为下图</p>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/abc2.png" alt="abc2"></p>
+<p>根据公式（1），联合概率为   <script type="math/tex">P(x_A,x_B,x_C)=\frac{1}{Z}\psi_{AC}(x_A,x_C)\psi_{AC}(x_B,x_C)</script>    (4)</p>
+<p>根据条件概率与联合概率的公式定义可得(带入公式(4)下面的<script type="math/tex">\frac{1}{Z}</script>约去)</p>
+<script type="math/tex; mode=display">\begin{equation}\begin{split}P(x_A,x_B | x_C)&= \frac{P(x_A,x_B,x_C)}{P(x_C)}\\&= \frac{P(x_A,x_B,x_C)}{\Sigma_{x_A^`} \Sigma_{x_B^`}P(x_A^`,x_b^`,x_C)}\\&= \frac{\frac{1}{Z}\psi_{AC}(x_A,x_C)\psi_{AC}(x_B,x_C)}{\Sigma_{x_A^`} \Sigma_{x_B^`} \frac{1}{Z}\psi_{AC}(x_A^`,x_C)\psi_{AC}(x_B^`,x_C)} \\&=  \frac{\psi_{AC}(x_A,x_C)}{\Sigma_{x_A^`}\psi_{AC}(x_A^`,x_C)}· \frac{\psi_{AC}(x_B,x_C)}{\Sigma_{x_B^`}\psi_{AC}(x_B^`,x_C)}\end{split}\end{equation}</script><script type="math/tex; mode=display">\begin{equation}\begin{split}P(x_A| x_C)&= \frac{P(x_A,x_C)}{P(x_C)}\\&= \frac{ \Sigma_{x_B^`}P(x_A,x_B^`,x_C)}{\Sigma_{x_A^`} \Sigma_{x_B^`}P(x_A^`,x_b^`,x_C)}\\&= \frac{\Sigma_{x_B^`}\frac{1}{Z}\psi_{AC}(x_A,x_C)\psi_{AC}(x_B^`,x_C)}{\Sigma_{x_A^`} \Sigma_{x_B^`} \frac{1}{Z}\psi_{AC}(x_A^`,x_C)\psi_{AC}(x_B^`,x_C)} \\&=  \frac{\psi_{AC}(x_A,x_C)}{\Sigma_{x_A^`}\psi_{AC}(x_A^`,x_C)}\end{split}\end{equation}</script><p>同理可得<script type="math/tex">P(x_B| x_C)</script>, 即<script type="math/tex">P(x_A,x_B | x_C)= P(x_A | x_C)P(x_B | x_C)</script> </p>
+<p>即可得<script type="math/tex">x_A,x_B</script>在给定<script type="math/tex">x_C</script>时条件独立</p>
+<h3 id="由全局马尔可夫性可得两个推论"><a href="#由全局马尔可夫性可得两个推论" class="headerlink" title="由全局马尔可夫性可得两个推论"></a>由全局马尔可夫性可得两个推论</h3><ul>
+<li>局部马尔可夫性（local Markov property）<ul>
+<li>给定某变量的邻接变量，则该变量独立于其他变量。令V为图的结点集，n(v)为结点v在图上的邻接结点，<script type="math/tex">n^*(v)=n(v)\cup \{v\}</script>,有<script type="math/tex">x_v \bot x_{V \backslash n^*(v)} | x_{n(v)}</script></li>
+</ul>
+</li>
+<li>成对马尔可夫性（pairwise Markov property）<ul>
+<li>给定所有其他变量，两个非邻接变量条件独立，即令图的结点集和边集分别为V和E，对图中的两个结点u和v，若边<script type="math/tex"><u,v> \notin E</script>,则<script type="math/tex">x_u \bot x_{v} |  x_{V \backslash <u,v>}</script></li>
+</ul>
+</li>
+</ul>
+<h3 id="势函数"><a href="#势函数" class="headerlink" title="势函数"></a>势函数</h3><ul>
+<li>势函数<script type="math/tex">\psi_Q(\boldsymbol{x}_Q)</script>用于定量刻画变量集<script type="math/tex">\boldsymbol{x_Q}</script>中变量之间的相关关系</li>
+<li>应是非负函数，常用指数函数表示<ul>
+<li><script type="math/tex">\psi_Q(\boldsymbol{x}_Q)=e^{-H_Q(x_Q)}</script>, 其中<script type="math/tex">H_Q(x_Q)</script>是一个定义在变量<script type="math/tex">\boldsymbol{x}_Q</script>上的实值函数，常见形式为:<ul>
+<li><script type="math/tex">H_Q(x_Q)= \sum_{u,v\in Q, u\ne v} \alpha_{uv}x_u x_v + \sum_{v \in Q} \beta_vx_v</script>,        <script type="math/tex">\alpha_{uv}</script>和<script type="math/tex">\beta_{v}</script>为参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在所偏好的变量取值上有较大函数值</li>
+</ul>
+<h2 id="3、条件随机场（Conditional-Random-Field，简称CRF）"><a href="#3、条件随机场（Conditional-Random-Field，简称CRF）" class="headerlink" title="3、条件随机场（Conditional Random Field，简称CRF）"></a>3、条件随机场（Conditional Random Field，简称CRF）</h2><blockquote>
+<ul>
+<li>判别式无向图模型，对条件分布进行建模，条件随机场是判别式模型，前面的HMM和MRF都是生成式模型</li>
+<li>令观测序列为$\boldsymbol{x}= $ {$x_1$, $x_2$,…,$x_n$} ，对应标记序列为$\boldsymbol{y}= $ {$y_1$, $y_2$,…,$y_n$} ,则目标是构建条件概率模型<script type="math/tex">P(y|x)</script>, 其中y可以是结构型变量，即变量间可存在相关性</li>
+</ul>
+</blockquote>
+<h3 id="构成条件随机场的条件"><a href="#构成条件随机场的条件" class="headerlink" title="构成条件随机场的条件"></a>构成条件随机场的条件</h3><ul>
+<li>令<script type="math/tex">G=<V,E></script> 表示结点和标记变量<script type="math/tex">\boldsymbol y</script> 中元素一一对应的无向图</li>
+<li><script type="math/tex">y_v</script> : 结点v对应的标记变量</li>
+<li><script type="math/tex">n(v)</script> ：结点v的邻接节点</li>
+<li>若图G中每个变量<script type="math/tex">y_v</script>都满足马尔可夫性(即两个不相邻的节点上的随机变量条件独立)，则<ul>
+<li><script type="math/tex; mode=display">P(y_v | \boldsymbol{x,y}_V\backslash\{v\}) = P(y_v|\boldsymbol{x,y}_{n(v)})</script></li>
+</ul>
+</li>
+</ul>
+<p>则<script type="math/tex">(\boldsymbol{u,x})</script>构成一个条件随机场</p>
+<h3 id="链式条件随机场（linear-chain-CRF）"><a href="#链式条件随机场（linear-chain-CRF）" class="headerlink" title="链式条件随机场（linear chain CRF）"></a>链式条件随机场（linear chain CRF）</h3><p><img src="http://ojrl64kjn.bkt.clouddn.com/ccrf.png" alt="ccrf"></p>
+<p>用指数势函数(公式（4）)并引入特征函数，条件概率被定义为</p>
+<p><script type="math/tex">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))</script>    （5）</p>
+<p>其中：</p>
+<ul>
+<li><script type="math/tex">t_j (y_{i+1},y_i,\boldsymbol{x},i)</script>  定义在观测序列的两个相邻标记位置上的转移特征函数（transition feature function）,用于刻画相邻标记变量之间的相关关系以及观测序列对它们的影响</li>
+<li><script type="math/tex">s_k(y_i,\boldsymbol{x},i))</script> 定义在观测序列的标记位置i上的状态特征函数（status feature function）,用于刻画观测序列对标记变量的影响</li>
+<li><script type="math/tex">\lambda_j, \mu_k</script> 是参数， Z是规范化因子，确保（5）是正确定义的概率（0-1之间）</li>
 </ul>
 
       
@@ -595,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><span class="nav-number">2.</span> <span class="nav-text">2、马尔可夫随机场（Markov Random Field，简称MRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合概率计算"><span class="nav-number">2.1.</span> <span class="nav-text">联合概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证条件独立"><span class="nav-number">2.2.</span> <span class="nav-text">验证条件独立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由全局马尔可夫性可得两个推论"><span class="nav-number">2.3.</span> <span class="nav-text">由全局马尔可夫性可得两个推论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#势函数"><span class="nav-number">2.4.</span> <span class="nav-text">势函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、条件随机场（Conditional-Random-Field，简称CRF）"><span class="nav-number">3.</span> <span class="nav-text">3、条件随机场（Conditional Random Field，简称CRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构成条件随机场的条件"><span class="nav-number">3.1.</span> <span class="nav-text">构成条件随机场的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式条件随机场（linear-chain-CRF）"><span class="nav-number">3.2.</span> <span class="nav-text">链式条件随机场（linear chain CRF）</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -774,24 +862,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
