@@ -103,7 +103,7 @@
 
 无向图表示变量之间的相关关系（无向图">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/hmm.png">
-<meta property="og:updated_time" content="2017-02-17T01:28:17.000Z">
+<meta property="og:updated_time" content="2017-02-17T01:35:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-概率图模型">
 <meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
@@ -391,7 +391,7 @@
 <li><p>任一时刻，观察变量的取值只依赖于状态变量，即$x_t$由$y_t$决定</p>
 </li>
 <li><p>t时刻的状态 $y<em>t$ 仅依赖于t-1时刻的状态 $y</em>{t-1}$，与其余n-2个状态无关，也就是”<strong>马尔可夫链</strong>”：系统下一时刻的状态仅由当前状态决定，不依赖于以往的任何状态，基于这种依赖关系，所有变量的联合概率分布为：</p>
-<p> $P(x_1,y_1,…,x_n,y_n)=P(y_1)P(x_1|y<em>1)\prod</em>{i=2}^nP(y<em>i|y</em>{i-1})P(x_i|y_i)$ </p>
+<p> $P(x_1,y_1,…,x_n,y_n)=P(y_1)P(x_1|y<em>1)\prod</em>{i=2}^nP(y<em>i|y</em>{i-1})P(x_i|y_i)$</p>
 </li>
 </ul>
 <p>除了结构信息，确定一个马尔可夫模型还需要以下三组参数</p>
