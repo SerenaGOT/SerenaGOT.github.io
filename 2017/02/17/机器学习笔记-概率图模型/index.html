@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147a.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147b.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/148.png">
-<meta property="og:updated_time" content="2017-02-25T09:42:22.000Z">
+<meta property="og:updated_time" content="2017-02-25T09:43:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-概率图模型">
 <meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
@@ -504,28 +504,24 @@
 </ul>
 <p>则<script type="math/tex">(\boldsymbol{u,x})</script>构成一个条件随机场</p>
 <h3 id="链式条件随机场（linear-chain-CRF）"><a href="#链式条件随机场（linear-chain-CRF）" class="headerlink" title="链式条件随机场（linear chain CRF）"></a>链式条件随机场（linear chain CRF）</h3><p><img src="http://ojrl64kjn.bkt.clouddn.com/ccrf.png" alt="ccrf"></p>
-<p>用指数势函数(公式（4）)并引入特征函数，条件概率被定义为</p>
-<script type="math/tex; mode=display">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))$$             (5)
-
-
-
-其中：
-
-- $$t_j (y_{i+1},y_i,\boldsymbol{x},i)$$  定义在观测序列的两个相邻标记位置上的转移特征函数（transition feature function）,用于刻画相邻标记变量之间的相关关系以及观测序列对它们的影响
-- $$ s_k(y_i,\boldsymbol{x},i))$$ 定义在观测序列的标记位置i上的状态特征函数（status feature function）,用于刻画观测序列对标记变量的影响
-- $$\lambda_j, \mu_k$$ 是参数， Z是规范化因子，确保（5）是正确定义的概率（0-1之间）
-
-
-
-
-
-
-## 4、学习与推断
-
-- 边际分布：对无关白能量求和或积分后得到结果
-  - 边际化：马尔可夫网中，变量的联合分布被表示成极大团的势函数乘积，给定参数$$\theta$$求某个变量x的分布，就变成对联合分布中其他无关变量进行积分的过程。
-- 计算边际分布所用到的概率公式
-  - $$P(x_E)=\sum_{x_F}P(x_E,x_F)</script><p>下面介绍的是两种精确推断的方法</p>
+<p>用指数势函数(公式（4）)并引入特征函数，条件概率被定义为<script type="math/tex">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))</script>             (5)</p>
+<p>其中：</p>
+<ul>
+<li><script type="math/tex">t_j (y_{i+1},y_i,\boldsymbol{x},i)</script>  定义在观测序列的两个相邻标记位置上的转移特征函数（transition feature function）,用于刻画相邻标记变量之间的相关关系以及观测序列对它们的影响</li>
+<li><script type="math/tex">s_k(y_i,\boldsymbol{x},i))</script> 定义在观测序列的标记位置i上的状态特征函数（status feature function）,用于刻画观测序列对标记变量的影响</li>
+<li><script type="math/tex">\lambda_j, \mu_k</script> 是参数， Z是规范化因子，确保（5）是正确定义的概率（0-1之间）</li>
+</ul>
+<h2 id="4、学习与推断"><a href="#4、学习与推断" class="headerlink" title="4、学习与推断"></a>4、学习与推断</h2><ul>
+<li>边际分布：对无关白能量求和或积分后得到结果<ul>
+<li>边际化：马尔可夫网中，变量的联合分布被表示成极大团的势函数乘积，给定参数<script type="math/tex">\theta</script>求某个变量x的分布，就变成对联合分布中其他无关变量进行积分的过程。</li>
+</ul>
+</li>
+<li>计算边际分布所用到的概率公式<ul>
+<li><script type="math/tex; mode=display">P(x_E)=\sum_{x_F}P(x_E,x_F)</script></li>
+</ul>
+</li>
+</ul>
+<p>下面介绍的是两种精确推断的方法</p>
 <h3 id="4-1变量消去"><a href="#4-1变量消去" class="headerlink" title="4.1变量消去"></a>4.1变量消去</h3><p>有向图的一个例子</p>
 <ul>
 <li>贝叶斯网络结构（14.7a）：</li>
@@ -776,7 +772,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><span class="nav-number">2.</span> <span class="nav-text">2、马尔可夫随机场（Markov Random Field，简称MRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合概率计算"><span class="nav-number">2.1.</span> <span class="nav-text">联合概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证条件独立"><span class="nav-number">2.2.</span> <span class="nav-text">验证条件独立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由全局马尔可夫性可得两个推论"><span class="nav-number">2.3.</span> <span class="nav-text">由全局马尔可夫性可得两个推论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#势函数"><span class="nav-number">2.4.</span> <span class="nav-text">势函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、条件随机场（Conditional-Random-Field，简称CRF）"><span class="nav-number">3.</span> <span class="nav-text">3、条件随机场（Conditional Random Field，简称CRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构成条件随机场的条件"><span class="nav-number">3.1.</span> <span class="nav-text">构成条件随机场的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式条件随机场（linear-chain-CRF）"><span class="nav-number">3.2.</span> <span class="nav-text">链式条件随机场（linear chain CRF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1变量消去"><span class="nav-number">3.3.</span> <span class="nav-text">4.1变量消去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2信念传播"><span class="nav-number">3.4.</span> <span class="nav-text">4.2信念传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体操作"><span class="nav-number">3.4.1.</span> <span class="nav-text">具体操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、近似推断"><span class="nav-number">4.</span> <span class="nav-text">5、近似推断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MCMC采样（马尔科夫链蒙特卡罗方法）"><span class="nav-number">4.1.</span> <span class="nav-text">MCMC采样（马尔科夫链蒙特卡罗方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样法思路"><span class="nav-number">4.1.1.</span> <span class="nav-text">采样法思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MCMC方法"><span class="nav-number">4.1.2.</span> <span class="nav-text">MCMC方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Metropolis-Hastings（简称MH）"><span class="nav-number">4.1.3.</span> <span class="nav-text">Metropolis-Hastings（简称MH）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、马尔可夫决策过程（MDP）"><span class="nav-number">5.</span> <span class="nav-text">5、马尔可夫决策过程（MDP）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><span class="nav-number">2.</span> <span class="nav-text">2、马尔可夫随机场（Markov Random Field，简称MRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合概率计算"><span class="nav-number">2.1.</span> <span class="nav-text">联合概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证条件独立"><span class="nav-number">2.2.</span> <span class="nav-text">验证条件独立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由全局马尔可夫性可得两个推论"><span class="nav-number">2.3.</span> <span class="nav-text">由全局马尔可夫性可得两个推论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#势函数"><span class="nav-number">2.4.</span> <span class="nav-text">势函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、条件随机场（Conditional-Random-Field，简称CRF）"><span class="nav-number">3.</span> <span class="nav-text">3、条件随机场（Conditional Random Field，简称CRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构成条件随机场的条件"><span class="nav-number">3.1.</span> <span class="nav-text">构成条件随机场的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式条件随机场（linear-chain-CRF）"><span class="nav-number">3.2.</span> <span class="nav-text">链式条件随机场（linear chain CRF）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、学习与推断"><span class="nav-number">4.</span> <span class="nav-text">4、学习与推断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1变量消去"><span class="nav-number">4.1.</span> <span class="nav-text">4.1变量消去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2信念传播"><span class="nav-number">4.2.</span> <span class="nav-text">4.2信念传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体操作"><span class="nav-number">4.2.1.</span> <span class="nav-text">具体操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、近似推断"><span class="nav-number">5.</span> <span class="nav-text">5、近似推断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MCMC采样（马尔科夫链蒙特卡罗方法）"><span class="nav-number">5.1.</span> <span class="nav-text">MCMC采样（马尔科夫链蒙特卡罗方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样法思路"><span class="nav-number">5.1.1.</span> <span class="nav-text">采样法思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MCMC方法"><span class="nav-number">5.1.2.</span> <span class="nav-text">MCMC方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Metropolis-Hastings（简称MH）"><span class="nav-number">5.1.3.</span> <span class="nav-text">Metropolis-Hastings（简称MH）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、马尔可夫决策过程（MDP）"><span class="nav-number">6.</span> <span class="nav-text">5、马尔可夫决策过程（MDP）</span></a></li></ol></div>
             
 
           </div>
