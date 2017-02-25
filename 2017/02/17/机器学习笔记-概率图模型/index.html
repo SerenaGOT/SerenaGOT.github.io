@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147a.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147b.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/148.png">
-<meta property="og:updated_time" content="2017-02-25T09:41:04.000Z">
+<meta property="og:updated_time" content="2017-02-25T09:42:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-概率图模型">
 <meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
@@ -505,7 +505,9 @@
 <p>则<script type="math/tex">(\boldsymbol{u,x})</script>构成一个条件随机场</p>
 <h3 id="链式条件随机场（linear-chain-CRF）"><a href="#链式条件随机场（linear-chain-CRF）" class="headerlink" title="链式条件随机场（linear chain CRF）"></a>链式条件随机场（linear chain CRF）</h3><p><img src="http://ojrl64kjn.bkt.clouddn.com/ccrf.png" alt="ccrf"></p>
 <p>用指数势函数(公式（4）)并引入特征函数，条件概率被定义为</p>
-<script type="math/tex; mode=display">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))$$    （5）
+<script type="math/tex; mode=display">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))$$             (5)
+
+
 
 其中：
 
