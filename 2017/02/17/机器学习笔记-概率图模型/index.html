@@ -107,7 +107,10 @@
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/abc.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/abc2.png">
 <meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/ccrf.png">
-<meta property="og:updated_time" content="2017-02-17T10:35:55.000Z">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147a.png">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/147b.png">
+<meta property="og:image" content="http://ojrl64kjn.bkt.clouddn.com/148.png">
+<meta property="og:updated_time" content="2017-02-25T09:32:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-概率图模型">
 <meta name="twitter:description" content="概率图模型（probabilistic graphical model）：用图来表达变量相关关系的概率模型，它以图为表示工具，最常见用一个结点表示一个或一组随机变量，结点之间的边表示变量之间的概率相关关系，根据边的性质不同，大致分为两类：
@@ -502,13 +505,101 @@
 <p>则<script type="math/tex">(\boldsymbol{u,x})</script>构成一个条件随机场</p>
 <h3 id="链式条件随机场（linear-chain-CRF）"><a href="#链式条件随机场（linear-chain-CRF）" class="headerlink" title="链式条件随机场（linear chain CRF）"></a>链式条件随机场（linear chain CRF）</h3><p><img src="http://ojrl64kjn.bkt.clouddn.com/ccrf.png" alt="ccrf"></p>
 <p>用指数势函数(公式（4）)并引入特征函数，条件概率被定义为</p>
-<p><script type="math/tex">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))</script>    （5）</p>
-<p>其中：</p>
+<script type="math/tex; mode=display">P(\boldsymbol{y}|\boldsymbol{x}) = \frac{1}{Z} exp(\sum_j \sum_{i=1}^{n-1}\lambda_j t_j (y_{i+1},y_i,\boldsymbol{x},i)+\sum_k \sum_{i=1}^{n}\mu_k s_k(y_i,\boldsymbol{x},i))$$    （5）
+
+其中：
+
+- $$t_j (y_{i+1},y_i,\boldsymbol{x},i)$$  定义在观测序列的两个相邻标记位置上的转移特征函数（transition feature function）,用于刻画相邻标记变量之间的相关关系以及观测序列对它们的影响
+- $$ s_k(y_i,\boldsymbol{x},i))$$ 定义在观测序列的标记位置i上的状态特征函数（status feature function）,用于刻画观测序列对标记变量的影响
+- $$\lambda_j, \mu_k$$ 是参数， Z是规范化因子，确保（5）是正确定义的概率（0-1之间）
+
+
+
+
+
+
+## 4、学习与推断
+
+- 边际分布：对无关白能量求和或积分后得到结果
+  - 边际化：马尔可夫网中，变量的联合分布被表示成极大团的势函数乘积，给定参数$$\theta$$求某个变量x的分布，就变成对联合分布中其他无关变量进行积分的过程。
+- 计算边际分布所用到的概率公式
+  - $$P(x_E)=\sum_{x_F}P(x_E,x_F)</script><p>下面介绍的是两种精确推断的方法</p>
+<h3 id="4-1变量消去"><a href="#4-1变量消去" class="headerlink" title="4.1变量消去"></a>4.1变量消去</h3><p>有向图的一个例子</p>
 <ul>
-<li><script type="math/tex">t_j (y_{i+1},y_i,\boldsymbol{x},i)</script>  定义在观测序列的两个相邻标记位置上的转移特征函数（transition feature function）,用于刻画相邻标记变量之间的相关关系以及观测序列对它们的影响</li>
-<li><script type="math/tex">s_k(y_i,\boldsymbol{x},i))</script> 定义在观测序列的标记位置i上的状态特征函数（status feature function）,用于刻画观测序列对标记变量的影响</li>
-<li><script type="math/tex">\lambda_j, \mu_k</script> 是参数， Z是规范化因子，确保（5）是正确定义的概率（0-1之间）</li>
+<li>贝叶斯网络结构（14.7a）：</li>
 </ul>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/147a.png" alt="147a"></p>
+<ul>
+<li>信息传递过程如下图(14.7b)：</li>
+</ul>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/147b.png" alt="147b"></p>
+<p>​    其中的<script type="math/tex">m_{ij}</script>表示求加结果的中间结果，下标i表示对<script type="math/tex">x_i</script>的求加结果，下标j表示此项剩下的其他变量，则<script type="math/tex">m_{ij}(x_j)</script>是关于<script type="math/tex">x_j</script>的函数。</p>
+<p>​    如果推断目标使计算边际概率<script type="math/tex">P(x_5)</script>则只需要通过加法消去变量{x1,x2,x3,x4}，过程如下：</p>
+<script type="math/tex; mode=display">\begin{equation}\begin{split}  P(x_5)&=\sum_{x_4}\sum_{x_3}\sum_{x_2}\sum_{x_1}P(x_1,x_2,x_3,x_4,x_5)   \\&= \sum_{x_4}\sum_{x_3}\sum_{x_2}\sum_{x_1}P(x_1)P(x_2|x_1)P(x_3|x_2)P(x_4|x_3)P(x_5|x_3) \\&=\sum_{x_3}P(x_5|x_3)\sum_{x_4}P(x_4|x_3)\sum_{x_2}P(x_3|x_2)\sum_{x_1}P(x_2|x_1) \\&= \sum_{x_3}P(x_5|x_3)\sum_{x_4}P(x_4|x_3)\sum_{x_2}P(x_3|x_2)m_{12}(x_2) \\&= \sum_{x_3}P(x_5|x_3)\sum_{x_4}P(x_4|x_3)m_{23}(x_3)\\&=\sum_{x_3}P(x_5|x_3)m_{23}(x_3)m_{43}(x_3)\\&=m_{35}(x_5)\end{split}\end{equation}</script><p>​    所以最后的结果是关于<script type="math/tex">x_5</script>的函数，仅与变量<script type="math/tex">x_5</script>的取值有关</p>
+<p>​    同样忽略14.7a中的箭头，看做无向图模型，用势函数表示：</p>
+<script type="math/tex; mode=display">P(x_1,x_2,x_3,x_4,x_5) = \frac{1}{Z}\psi_{12}(x_1,x_2)\psi_{23}(x_2,x_3)\psi_{34}(x_3,x_4)\psi_{35}(x_3,x_5)</script><p>通过上述公式相同的求和方法（把概率视为势函数），最终得<script type="math/tex">P(x_5)=\frac{1}{Z}m_{35}(x_5)</script></p>
+<ul>
+<li>变量消去法的缺点：若要计算多个边际分布，就要重复使用变量消去法造成大量的冗余计算。</li>
+</ul>
+<h3 id="4-2信念传播"><a href="#4-2信念传播" class="headerlink" title="4.2信念传播"></a>4.2信念传播</h3><ul>
+<li>将变量消去法中的求和操作看成一个消息传递的过程</li>
+<li>解决多个边际分布时的重复计算问题</li>
+</ul>
+<h4 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h4><p>​    在变量消去法中，通过求和操作： <script type="math/tex">m_{ij}(x_j)=\sum_{x_i}\psi(x_i,x_j)\prod_{k\in n(i)\backslash j }m_{ki}(x_i)</script>           (14.19) 消去变量<script type="math/tex">x_i</script>,其中<script type="math/tex">n(i)</script>表示结点<script type="math/tex">x_i</script>的邻接结点。</p>
+<ul>
+<li><p>在信念传播算法中，这个操作被看做从<script type="math/tex">x_i</script>向<script type="math/tex">x_j</script>传递了一个消息<script type="math/tex">m_{ij}(x_j)</script>，变量消去过程即信息传递过程。</p>
+</li>
+<li><p>每次消息传递操作仅与变量<script type="math/tex">x_i</script>及其邻接结点直接相关，即每次消息传递计算限制在图的局部</p>
+</li>
+<li><p>一个节点仅在接收到来自其他所有结点的消息后才能向另一个结点发送消息，且结点的边际分布正比于它所接收到的信息乘积，即 <script type="math/tex">P(x_i) \propto \prod_{k \in n(i)}m_{ki}(x_i)</script></p>
+<p>若图结构没有环，则信念传播算法经过两个步骤即可完成全部消息传递，进而可以计算所有变量上的边际分布:</p>
+</li>
+<li><p>制定一个根节点，从所有叶节点开始向根节点传递消息，直到根节点收到所有邻接结点的消息。</p>
+</li>
+<li><p>从根节点开始向叶节点传递消息，直到所有叶节点均收到消息</p>
+<p>如下图所示，令<script type="math/tex">x_1</script>为根节点，所有消息先传向根节点，再从根节点传出：</p>
+<p><img src="http://ojrl64kjn.bkt.clouddn.com/148.png" alt="148"></p>
+</li>
+</ul>
+<h2 id="5、近似推断"><a href="#5、近似推断" class="headerlink" title="5、近似推断"></a>5、近似推断</h2><p>近似推断方法大致分为两类：</p>
+<ul>
+<li>采样（sampling）：通过随机化方法完成近似</li>
+<li>确定性近似完成近似推断（如变分推断 variational inference）</li>
+</ul>
+<h3 id="MCMC采样（马尔科夫链蒙特卡罗方法）"><a href="#MCMC采样（马尔科夫链蒙特卡罗方法）" class="headerlink" title="MCMC采样（马尔科夫链蒙特卡罗方法）"></a>MCMC采样（马尔科夫链蒙特卡罗方法）</h3><h4 id="采样法思路"><a href="#采样法思路" class="headerlink" title="采样法思路"></a>采样法思路</h4><p>​    假定我们的目标是计算函数f(x)在概率密度函数p(x)下的期望：</p>
+<p><script type="math/tex">E_p[f]=\int f(x)p(x)dx</script>    (14.21)</p>
+<p>​    则可以根据p(x)抽取一组样本<script type="math/tex">\{x_1,x_2,…,x_N\}</script>然后计算f(x)在这些样本上的均值</p>
+<p> <script type="math/tex">\hat{f}=\frac{1}{N}\sum_{i=1}^{N}f(x_i)</script>    （14.22）</p>
+<p>​    以此来近似目标期望E[f]，若样本<script type="math/tex">\{x_1,x_2,…,x_N\}</script>独立，基于大数原理，这种通过大量采样的方法可以获得比较高的近似精度。</p>
+<h4 id="MCMC方法"><a href="#MCMC方法" class="headerlink" title="MCMC方法"></a>MCMC方法</h4><p>​    给定连续变量<script type="math/tex">x\in X</script>的概率密度函数<script type="math/tex">p(x)</script>, x在区间A中的概率可通过积分计算：</p>
+<p><script type="math/tex">P(A)=\int p(x)dx</script>    (14.23)</p>
+<p>​    若有函数<script type="math/tex">f:X\mapsto R</script> ，则可计算f(x)的期望</p>
+<p><script type="math/tex">p(x)=E_p[f]=\int_x f(x)p(x)dx</script>    (14.24)</p>
+<p>​    如果x不是单变量而是一个高位多元变量（向量x），且服从一个非常复杂的分布，则对式求积分通常很困难，谓词，MCMC先构建出服从p分布的独立同分布随机变量，再得到式(14.24)的<code>无偏估计</code>（参数的样本估计量的期望值等于参数的真实值）：</p>
+<p><script type="math/tex">\tilde{p}(f)=\frac{1}{N}\sum_{i=1}^{N}f(\boldsymbol{x_i})</script>    (14.25)</p>
+<p>​    若p(x)很复杂构建服从p分布的独立同分布样本也很困难。MCMC方法关键在于通过构造“平稳分布为p的马尔科夫链”来产生样本：</p>
+<ul>
+<li><p>若马尔科夫链运行时间足够长，即收敛到平稳状态，则此时产出样本x近似服从于分布p。</p>
+<p>判断某个时刻马尔科夫链达到平稳状态的满足条件如下：</p>
+<p><script type="math/tex">p(\boldsymbol{x}^t)T(\boldsymbol{x}^{t-1}|\boldsymbol{x}^t)=p(\boldsymbol{x}^{t-1})T(\boldsymbol{x}^t|\boldsymbol{x}^{t-1})</script>    (14.26)</p>
+<p>其中，状态转移概率为<script type="math/tex">T(\boldsymbol{x}^`|\boldsymbol{x})</script> ，t时刻状态分布为<script type="math/tex">p(\boldsymbol{x}^t)</script>，<script type="math/tex">p(\boldsymbol{x})</script>是该马尔科夫链的平稳分布</p>
+</li>
+</ul>
+<h4 id="Metropolis-Hastings（简称MH）"><a href="#Metropolis-Hastings（简称MH）" class="headerlink" title="Metropolis-Hastings（简称MH）"></a>Metropolis-Hastings（简称MH）</h4><ul>
+<li>算法是MCMC的重要代表，它基于“拒绝采样”（reject sampling）来逼近平稳分布p</li>
+<li>算法每次根据上一轮采样结果<script type="math/tex">\boldsymbol{x}^t</script>来获取候选样本<script type="math/tex">\boldsymbol{x}^*</script>，但候选样本会以一定概率被拒绝，即不转换状态</li>
+<li>从<script type="math/tex">\boldsymbol{x}^t</script>到<script type="math/tex">\boldsymbol{x}^*</script>的转移概率为<script type="math/tex">Q(\boldsymbol{x}^*|\boldsymbol{x}^{t-1})A(\boldsymbol{x}^*|\boldsymbol{x}^{t-1})</script> ，其中<script type="math/tex">Q(\boldsymbol{x}^*|\boldsymbol{x}^{t-1})</script>为用户给定的<code>先验概率</code>,<script type="math/tex">A(\boldsymbol{x}^*|\boldsymbol{x}^{t-1})</script>为<script type="math/tex">x^*</script>被接受的概率，若<script type="math/tex">x^*</script>最终收敛到平稳状态则根据（14.26）：<ul>
+<li><script type="math/tex">p(\boldsymbol{x}^{t-1})Q(\boldsymbol{x}^{*}|\boldsymbol{x}^{t-1})A(\boldsymbol{x}^{*}|\boldsymbol{x}^{t-1})=p(\boldsymbol{x}^{*})Q(\boldsymbol{x}^{t-1}|\boldsymbol{x}^{*})A(\boldsymbol{x}^{t-1}|\boldsymbol{x}^{*})</script>    (14.26)</li>
+</ul>
+</li>
+</ul>
+<h2 id="5、马尔可夫决策过程（MDP）"><a href="#5、马尔可夫决策过程（MDP）" class="headerlink" title="5、马尔可夫决策过程（MDP）"></a>5、马尔可夫决策过程（MDP）</h2><p>参考链接：</p>
+<ul>
+<li><a href="http://blog.csdn.net/zz_1215/article/details/44138823" target="_blank" rel="external"><a href="http://blog.csdn.net/zz_1215/article/details/44138823" target="_blank" rel="external">增强学习（二）——- 马尔可夫决策过程MDP</a></a></li>
+<li><a href="http://www.algorithmdog.com/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B" target="_blank" rel="external">强化学习-马尔科夫决策过程</a></li>
+<li><a href="http://lanbing510.info/2015/11/17/Master-Reinforcement-Learning-MDP.html" target="_blank" rel="external">增强学习与马尔科夫决策过程</a></li>
+</ul>
+<p>马尔可夫决策过程(Markov Decision Process, MDP)也具有马尔可夫性，与上面不同的是MDP考虑了动作，即系统下个状态不仅和当前的状态有关，也和当前采取的动作有关。还是举下棋的例子，当我们在某个局面（状态s）走了一步(动作a)，这时对手的选择（导致下个状态s’）我们是不能确定的，但是他的选择只和s和a有关，而不用考虑更早之前的状态和动作，即s’是根据s和a随机生成的。</p>
 
       
     </div>
@@ -683,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><span class="nav-number">2.</span> <span class="nav-text">2、马尔可夫随机场（Markov Random Field，简称MRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合概率计算"><span class="nav-number">2.1.</span> <span class="nav-text">联合概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证条件独立"><span class="nav-number">2.2.</span> <span class="nav-text">验证条件独立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由全局马尔可夫性可得两个推论"><span class="nav-number">2.3.</span> <span class="nav-text">由全局马尔可夫性可得两个推论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#势函数"><span class="nav-number">2.4.</span> <span class="nav-text">势函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、条件随机场（Conditional-Random-Field，简称CRF）"><span class="nav-number">3.</span> <span class="nav-text">3、条件随机场（Conditional Random Field，简称CRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构成条件随机场的条件"><span class="nav-number">3.1.</span> <span class="nav-text">构成条件随机场的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式条件随机场（linear-chain-CRF）"><span class="nav-number">3.2.</span> <span class="nav-text">链式条件随机场（linear chain CRF）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、隐马尔可夫模型（Hidden-Markov-Model-简称HMM）"><span class="nav-number">1.</span> <span class="nav-text">1、隐马尔可夫模型（Hidden Markov Model,简称HMM）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型参数"><span class="nav-number">1.1.</span> <span class="nav-text">模型参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成序列过程"><span class="nav-number">1.2.</span> <span class="nav-text">生成序列过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马尔可夫模型的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">马尔可夫模型的三个基本问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、马尔可夫随机场（Markov-Random-Field，简称MRF）"><span class="nav-number">2.</span> <span class="nav-text">2、马尔可夫随机场（Markov Random Field，简称MRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联合概率计算"><span class="nav-number">2.1.</span> <span class="nav-text">联合概率计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证条件独立"><span class="nav-number">2.2.</span> <span class="nav-text">验证条件独立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#由全局马尔可夫性可得两个推论"><span class="nav-number">2.3.</span> <span class="nav-text">由全局马尔可夫性可得两个推论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#势函数"><span class="nav-number">2.4.</span> <span class="nav-text">势函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、条件随机场（Conditional-Random-Field，简称CRF）"><span class="nav-number">3.</span> <span class="nav-text">3、条件随机场（Conditional Random Field，简称CRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构成条件随机场的条件"><span class="nav-number">3.1.</span> <span class="nav-text">构成条件随机场的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式条件随机场（linear-chain-CRF）"><span class="nav-number">3.2.</span> <span class="nav-text">链式条件随机场（linear chain CRF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1变量消去"><span class="nav-number">3.3.</span> <span class="nav-text">4.1变量消去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2信念传播"><span class="nav-number">3.4.</span> <span class="nav-text">4.2信念传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#具体操作"><span class="nav-number">3.4.1.</span> <span class="nav-text">具体操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、近似推断"><span class="nav-number">4.</span> <span class="nav-text">5、近似推断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MCMC采样（马尔科夫链蒙特卡罗方法）"><span class="nav-number">4.1.</span> <span class="nav-text">MCMC采样（马尔科夫链蒙特卡罗方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样法思路"><span class="nav-number">4.1.1.</span> <span class="nav-text">采样法思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MCMC方法"><span class="nav-number">4.1.2.</span> <span class="nav-text">MCMC方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Metropolis-Hastings（简称MH）"><span class="nav-number">4.1.3.</span> <span class="nav-text">Metropolis-Hastings（简称MH）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、马尔可夫决策过程（MDP）"><span class="nav-number">5.</span> <span class="nav-text">5、马尔可夫决策过程（MDP）</span></a></li></ol></div>
             
 
           </div>
