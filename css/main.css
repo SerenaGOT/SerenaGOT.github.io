@@ -1431,6 +1431,9 @@ pre .javascript .function {
   line-height: 2;
   margin: 0 4px 8px 4px;
 }
+.post-more-link .btn:hover {
+  color: #fff;
+}
 .post-more-link .fa-fw {
   width: 1.285714285714286em;
   text-align: left;
@@ -1686,7 +1689,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fffa21;
+  background: #ffa637;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2221,13 +2224,6 @@ a.search-result {
 .site-pv .busuanzi-value,
 .page-pv .busuanzi-value {
   margin: 0 5px;
-}
-.site-uv {
-  margin-right: 10px;
-}
-.site-uv::after {
-  content: "|";
-  padding-left: 10px;
 }
 .use-motion .post {
   opacity: 0;
