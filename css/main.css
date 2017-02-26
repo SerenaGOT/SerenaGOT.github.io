@@ -848,8 +848,8 @@ pre .javascript .function {
 .btn:hover,
 .post-more-link .btn:hover {
   border-color: #222;
-  color: #fff;
-  background: #222;
+  color: #555;
+  background: #fff;
 }
 .btn-bar {
   display: block;
@@ -1431,9 +1431,6 @@ pre .javascript .function {
   line-height: 2;
   margin: 0 4px 8px 4px;
 }
-.post-more-link .btn:hover {
-  color: #fff;
-}
 .post-more-link .fa-fw {
   width: 1.285714285714286em;
   text-align: left;
@@ -1689,7 +1686,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffa637;
+  background: #cc1783;
 }
 .links-of-blogroll {
   font-size: 13px;
